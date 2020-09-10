@@ -1,17 +1,7 @@
-﻿using System;
+﻿using GalleryBL;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace GalleryPL
 {
@@ -23,6 +13,46 @@ namespace GalleryPL
         public MainWindow()
         {
             InitializeComponent();
+
+            var albums = GetAlbums();
+            if(albums.Count > 0)
+            {
+                ListViewAlbums.ItemsSource = albums;
+            }
+
+        }
+
+        private List<Album> GetAlbums()
+        {          
+            return new TestClass().GetAlbums()   ;
+        }
+
+        private void Album_btn_Click(object sender, RoutedEventArgs e)
+        {
+
+            //var item = (sender as FrameworkElement).DataContext;
+
+            //int index = ListViewAlbums.Items.IndexOf(item);
+            //MessageBox.Show(index.ToString());
+
+            //or
+            //Button button = sender as Button;
+            //Album album = button.DataContext as Album;
+            //MessageBox.Show(album.AlbumTitle);
+
+            //or
+            Button button = sender as Button;
+            int index = ListViewAlbums.Items.IndexOf(button.DataContext);
+            //This would work too.
+            //index = _myListBoxName.ItemContainerGenerator.IndexFromContainer(button.DataContext);
+
+            MessageBox.Show(index.ToString());//replace this with actual functionality
+        }
+
+        private void AddNewAlbum() { }
+        private void RemoveAlbum(int index)
+        {
+            
         }
     }
 }

@@ -5,14 +5,76 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GalleryPL"
         mc:Ignorable="d"
-        Title="Photo Gallery" Height="850" Width="1300" Icon="GalleryIcon.png" WindowStartupLocation="Manual" Background="#FF292929">
+        Title="Photo Gallery"
+        Height="850" Width="1300"
+        Icon="GalleryIcon.png"
+        WindowStartupLocation="CenterScreen"
+        Background="#FF292929">
     <!--GalleryIcon made by www.flaticon.com/authors/pause08-->
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="89*"/>
-            <RowDefinition Height="730*"/>
+            <RowDefinition Height="63"/>
+            <RowDefinition Height="715"/>
         </Grid.RowDefinitions>
 
+        <Grid Grid.RowSpan="2">
+            <TextBlock Text="Media Gallery"  Margin="10" FontSize="38" Foreground="AliceBlue" FontWeight="DemiBold"/>
+        </Grid>
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <TextBlock Text="Albums" Margin="20" FontSize="28" FontWeight="Medium" Foreground="AliceBlue"/>               
+                <StackPanel Margin="20 0" >
+                    <ItemsControl x:Name="ListViewAlbums" ItemsSource="{Binding Album}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Margin="10" Width="250" Height="200" Background="#303030" >
+                                    <Button x:Name="album_btn" Click="Album_btn_Click" CommandParameter="{Binding}"><!--CommandParameter with binding to pass the Album object/ListViewAlbums object.-->
+                                        <Button.Style>
+                                            <Style TargetType="{x:Type Button}">
+                                                <Setter Property="Background" Value="#303030"/>
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type Button}">
+                                                            <Border Background="{TemplateBinding Background}">
+                                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="#3d3d3d"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                        <StackPanel>
+                                            <Border Width="200" Height="100" CornerRadius="5" Margin="15">
+                                                <Border.Effect>
+                                                    <DropShadowEffect ShadowDepth="5"/>
+                                                </Border.Effect>
+                                                <Border.Background>
+                                                    <ImageBrush ImageSource="{Binding AlbumImage}" Stretch="Uniform"/>
+                                                </Border.Background>
+                                            </Border>
+                                            <TextBlock Margin="5" Text="{Binding AlbumTitle}" FontSize="17" FontFamily="Franklin Gothic Medium" Foreground="AliceBlue"/>
+                                            <TextBlock Margin="5 0" Text="{Binding AlbumDescription}" FontSize="12" Foreground="AliceBlue" TextWrapping="Wrap"/>
+                                        </StackPanel>
+                                    </Button>
+                                    
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
+
 </Window>

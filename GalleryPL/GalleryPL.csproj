@@ -97,5 +97,22 @@
   <ItemGroup>
     <Resource Include="GalleryIcon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
+      <Project>{3c6186d2-857f-4a89-a7f1-914f5534055c}</Project>
+      <Name>DataAccessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GalleryBL\GalleryBL.csproj">
+      <Project>{7489BDE0-D1A0-4A68-9D19-EF3DBFED772E}</Project>
+      <Name>GalleryBL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\GalleryIcon.png" />
+    <Resource Include="Assets\test_image.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\117433341_639124320118894_2954627081193273423_n.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
