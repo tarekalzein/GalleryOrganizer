@@ -10,32 +10,26 @@ namespace GalleryPL
     /// </summary>
     public partial class MainWindow : Window
     {
+        AlbumManager albumManager = new AlbumManager();
+
         public MainWindow()
         {
-            InitializeComponent();
-
-            var albums = GetAlbums();
-            if(albums.Count > 0)
+            InitializeComponent();            
+            if(albumManager.GetAlbums().Count> 0)
             {
-                ListViewAlbums.ItemsSource = albums;
+                ListViewAlbums.ItemsSource = albumManager.GetAlbums();
             }
 
-        }
-
-        private List<Album> GetAlbums()
-        {          
-            return new TestClass().GetAlbums()   ;
         }
 
         private void Album_btn_Click(object sender, RoutedEventArgs e)
         {
 
             //var item = (sender as FrameworkElement).DataContext;
-
             //int index = ListViewAlbums.Items.IndexOf(item);
             //MessageBox.Show(index.ToString());
 
-            //or
+            //or retrieve as Album object
             //Button button = sender as Button;
             //Album album = button.DataContext as Album;
             //MessageBox.Show(album.AlbumTitle);
@@ -47,12 +41,9 @@ namespace GalleryPL
             //index = _myListBoxName.ItemContainerGenerator.IndexFromContainer(button.DataContext);
 
             MessageBox.Show(index.ToString());//replace this with actual functionality
+            MessageBox.Show("Album title from Album Manager "+albumManager.GetAlbumAtIndex(index).AlbumTitle);//replace this with actual functionality
         }
 
-        private void AddNewAlbum() { }
-        private void RemoveAlbum(int index)
-        {
-            
-        }
+        
     }
 }
