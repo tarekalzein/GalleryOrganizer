@@ -23,13 +23,51 @@
         </Grid>
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
             <StackPanel>
-                <TextBlock Text="Albums" Margin="20" FontSize="28" FontWeight="Medium" Foreground="AliceBlue"/>               
+                <DockPanel>
+                    <TextBlock Text="Albums" Margin="20" FontSize="28" FontWeight="Medium" Foreground="AliceBlue"/>
+                    <Button  x:Name="new_btn" Margin="30 0" HorizontalAlignment="Right" Grid.Row="1" Grid.Column="1" Background="Transparent" BorderThickness="0" Click="new_btn_Click">
+                        <Image Height="50" Width="50">
+                            <Image.Style>
+                                <Style TargetType="Image">
+                                    <Setter Property="Source" Value="Assets/add.png"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Source" Value="Assets/plus.png"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Background" Value="#303030"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Background="{TemplateBinding Background}">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#3d3d3d"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </DockPanel>
+                
+
                 <StackPanel Margin="20 0" >
                     <ItemsControl x:Name="ListViewAlbums" ItemsSource="{Binding Album}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Border Margin="10" Width="250" Height="200" Background="#303030" >
-                                    <Button x:Name="album_btn" Click="Album_btn_Click" CommandParameter="{Binding}"><!--CommandParameter with binding to pass the Album object/ListViewAlbums object.-->
+                                    <Button x:Name="album_btn" Click="Album_btn_Click" CommandParameter="{Binding}">
+                                        <!--CommandParameter with binding to pass the Album object/ListViewAlbums object.-->
                                         <Button.Style>
                                             <Style TargetType="{x:Type Button}">
                                                 <Setter Property="Background" Value="#303030"/>
@@ -61,9 +99,16 @@
                                             <TextBlock Margin="5" Text="{Binding AlbumTitle}" FontSize="17" FontFamily="Franklin Gothic Medium" Foreground="AliceBlue"/>
                                             <TextBlock Margin="5 0" Text="{Binding AlbumDescription}" FontSize="12" Foreground="AliceBlue" TextWrapping="Wrap"/>
                                         </StackPanel>
+                                        <Button.ContextMenu>
+                                            <ContextMenu>
+                                                <MenuItem Header="Open" Click="btnOpen_onClick" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Parent}"/>
+                                                <MenuItem Header="Delete" Click="btnDelete_onClick" CommandParameter="{Binding RelativeSource={RelativeSource self}, Path=Parent}"/>
+                                                <MenuItem Header="SlideShow"/>
+                                            </ContextMenu>
+                                        </Button.ContextMenu>
                                     </Button>
-                                    
                                 </Border>
+
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                         <ItemsControl.ItemsPanel>

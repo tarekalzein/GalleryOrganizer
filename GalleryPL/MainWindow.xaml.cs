@@ -44,6 +44,40 @@ namespace GalleryPL
             MessageBox.Show("Album title from Album Manager "+albumManager.GetAlbumAtIndex(index).AlbumTitle);//replace this with actual functionality
         }
 
-        
+        private void btnOpen_onClick(object sender, RoutedEventArgs e)
+        {
+            MenuItem menuItem = sender as MenuItem;
+            if (menuItem != null)
+            {
+                ContextMenu parentContextMenu = menuItem.CommandParameter as ContextMenu;
+                if (parentContextMenu != null)
+                {
+                    int index = ListViewAlbums.Items.IndexOf(parentContextMenu.DataContext);
+                    MessageBox.Show("Album title from Album Manager " + albumManager.GetAlbumAtIndex(index).AlbumTitle);//replace this with actual functionality
+                }
+            }
+        }
+
+        private void btnDelete_onClick(object sender, RoutedEventArgs e)
+        {
+            MenuItem menuItem = sender as MenuItem;
+            if(menuItem!=null)
+            {
+                ContextMenu parentContextMenu = menuItem.CommandParameter as ContextMenu;
+                if(parentContextMenu != null)
+                {
+                    int index = ListViewAlbums.Items.IndexOf(parentContextMenu.DataContext);
+                    albumManager.RemoveAlbum(index);
+                }
+            }
+        }
+
+        private void new_btn_Click(object sender, RoutedEventArgs e)
+        {
+            Album album = new Album("New Album", "new Album from add button", "Assets/test_image.jpg");
+            albumManager.AddNewAlbum(album);
+            MessageBox.Show("New Album added, title: " + album.AlbumTitle);
+
+        }
     }
 }

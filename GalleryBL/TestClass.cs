@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 
 namespace GalleryBL
 {
     public class TestClass
     {
-        List<Album> list = new List<Album>();
+        ObservableCollection<Album> list = new ObservableCollection<Album>();
         public TestClass()
         {           
             list.Add(new Album("Album 1", "Description of Album 1", "Assets/117433341_639124320118894_2954627081193273423_n.jpg"));
@@ -29,7 +30,7 @@ namespace GalleryBL
             list.Add(new Album("Album 18", "Description of Album 18", "Assets/test_image.jpg"));
         }
 
-        public List<Album> GetAlbums()
+        public ObservableCollection<Album> GetAlbums()
         {
             return list;
         }
