@@ -11,7 +11,14 @@
         WindowStartupLocation="CenterScreen"
         Background="#FF292929">
     <!--GalleryIcon made by www.flaticon.com/authors/pause08-->
-
+    <Window.Resources>
+        <Style x:Key="MenuItemStyle" TargetType="{x:Type MenuItem}">
+            <Setter Property="Background" Value="#303030" />
+            <Setter Property="Foreground" Value="AliceBlue" />
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="BorderBrush" Value="#303030"/>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="63"/>
@@ -100,11 +107,12 @@
                                             <TextBlock Margin="5 0" Text="{Binding AlbumDescription}" FontSize="12" Foreground="AliceBlue" TextWrapping="Wrap"/>
                                         </StackPanel>
                                         <Button.ContextMenu>
-                                            <ContextMenu>
-                                                <MenuItem Header="Open" Click="btnOpen_onClick" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Parent}"/>
-                                                <MenuItem Header="Delete" Click="btnDelete_onClick" CommandParameter="{Binding RelativeSource={RelativeSource self}, Path=Parent}"/>
-                                                <MenuItem Header="SlideShow"/>
+                                            <ContextMenu Background="#303030" BorderThickness="0">
+                                                <MenuItem Header="Open" Click="btnOpen_onClick" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Parent}" Style="{StaticResource MenuItemStyle}"/>
+                                                <MenuItem Header="Delete" Click="btnDelete_onClick" CommandParameter="{Binding RelativeSource={RelativeSource self}, Path=Parent}" Style="{StaticResource MenuItemStyle}"/>
+                                                <MenuItem Header="SlideShow" Style="{StaticResource MenuItemStyle}"/>
                                             </ContextMenu>
+                                            
                                         </Button.ContextMenu>
                                     </Button>
                                 </Border>
@@ -123,3 +131,4 @@
     </Grid>
 
 </Window>
+
