@@ -32,5 +32,10 @@ namespace GalleryBL
         {
             return albumList[index];
         }
+
+        public ObservableCollection<MediaFile> GetAlbumFilesByAlbumIndex(int index)
+        {
+            return GetAlbumAtIndex(0).MediaFiles;
+        }
     }
 }

@@ -28,6 +28,7 @@ namespace GalleryBL
             list.Add(new Album("Album 16", "Description of Album 16", "Assets/test_image.jpg"));
             list.Add(new Album("Album 17", "Description of Album 17", "Assets/GalleryIcon.png"));
             list.Add(new Album("Album 18", "Description of Album 18", "Assets/test_image.jpg"));
+            list[0].MediaFiles.Add(new MediaFile("iamge 1", "this is an image description", "Assets/117433341_639124320118894_2954627081193273423_n.jpg"));
         }
 
         public ObservableCollection<Album> GetAlbums()
