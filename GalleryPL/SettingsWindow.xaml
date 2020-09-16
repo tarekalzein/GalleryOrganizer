@@ -1,0 +1,25 @@
+﻿<Window x:Class="GalleryPL.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GalleryPL"
+        mc:Ignorable="d"
+        Title="Settings" Height="227.004" Width="446.705" ResizeMode="NoResize" WindowStyle="ToolWindow" Background="#303030">
+    <Grid>
+        <GroupBox Header="Image Files" HorizontalAlignment="Left" Height="187" Margin="10 0" VerticalAlignment="Top" Width="200" Foreground="AliceBlue" FontSize="20">
+            <StackPanel VerticalAlignment="Center">
+                <CheckBox x:Name="jpgChkbox" Content=".jpg" HorizontalAlignment="Left" Margin="20" Foreground="AliceBlue" FontSize="20"/>
+                <CheckBox x:Name="pngChkbox" Content=".png" HorizontalAlignment="Left" Margin="20" Foreground="AliceBlue" FontSize="20"/>
+            </StackPanel>
+
+        </GroupBox>
+        <GroupBox Header="Video Files" HorizontalAlignment="Right" Height="187" Margin="10 0" VerticalAlignment="Top" Width="200" Foreground="AliceBlue" FontSize="20">
+            <StackPanel VerticalAlignment="Center">
+                <CheckBox Content=".mp4" HorizontalAlignment="Left" Margin="20" Foreground="AliceBlue" FontSize="20"/>
+                <CheckBox Content=".wav" HorizontalAlignment="Left" Margin="20" Foreground="AliceBlue" FontSize="20"/>
+            </StackPanel>
+        </GroupBox>
+
+    </Grid>
+</Window>

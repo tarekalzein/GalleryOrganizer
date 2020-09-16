@@ -1,5 +1,6 @@
 ﻿using GalleryBL;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
@@ -8,11 +9,16 @@ using System.Windows.Controls.Primitives;
 
 namespace GalleryPL
 {
+
+    //TODO: Add video thumbnails converter or something.
+
     /// <summary>
     /// Interaction logic for ImportWindow.xaml
     /// </summary>
     public partial class ImportWindow : Window
     {
+        
+        AppSettings appSettings = new AppSettings();
         public ImportWindow()
         {
             InitializeComponent();
@@ -47,7 +53,7 @@ namespace GalleryPL
                     foreach (DirectoryInfo subDir in expandedDir.GetDirectories())
                         item.Items.Add(CreateTreeItem(subDir));
                 }
-                catch(UnauthorizedAccessException o)
+                catch
                 {
                     MessageBox.Show("Access Denied.");
                 }
@@ -71,13 +77,12 @@ namespace GalleryPL
 
                 try
                 {
-                    foreach (var fi in folder.GetFiles("*.jpg"))
+                    foreach(var fi in GetFilesWithSettings(folder))
                     {
-                        //files.Add(new MediaFile(fi.Name, "", fi.FullName));
                         files.Add(new FileHelper(false, new MediaFile(fi.Name, "", fi.FullName)));
                     }
                 }
-                catch(UnauthorizedAccessException o)
+                catch
                 {
                     MessageBox.Show("Access Denied.");
                 }                           
@@ -90,13 +95,9 @@ namespace GalleryPL
             FileHelper file = toggleButton.DataContext as FileHelper;
 
             if ((bool)toggleButton.IsChecked)
-            {
                 file.IsSelected = true;
-            }
             else
-            {
                 file.IsSelected = false;
-            }
         }
 
         private TreeViewItem CreateTreeItem(object o)
@@ -125,6 +126,28 @@ namespace GalleryPL
             }
             MessageBox.Show("Count of selected files:" + count);
             
+        }
+
+        private void settings_btn_Click(object sender, RoutedEventArgs e)
+        {
+            SettingsWindow settings = new SettingsWindow(appSettings);
+            settings.Show();
+        }
+
+        private List<FileInfo> GetFilesWithSettings(DirectoryInfo folder)
+        {
+
+            string[] extensions= {"*.jpg","*.png","*.mp4","*.wmv"};
+            List<FileInfo> fileInfos = new List<FileInfo>();
+
+            foreach (string ext in extensions)
+            {
+                foreach(var file in folder.GetFiles(ext))
+                {
+                    fileInfos.Add(file);
+                }                
+            }
+            return fileInfos;
         }
     }
 }

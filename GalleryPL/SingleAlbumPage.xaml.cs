@@ -45,11 +45,9 @@ namespace GalleryPL.Properties
         private void import_btn_OnClick(object sender, RoutedEventArgs e)
         {
             ImportWindow importWindow = new ImportWindow();
-            //Change constructor to include the album to add files to.
+            //TODO: Change constructor to include the album to add files to.
             //Add delegates to add files directly.
-
-            importWindow.Show();
-            
+            importWindow.Show();            
         }
     }
 }
