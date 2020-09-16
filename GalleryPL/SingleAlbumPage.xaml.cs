@@ -33,16 +33,23 @@ namespace GalleryPL.Properties
             {
                 ListViewImages.ItemsSource = albumManager.GetAlbumAtIndex(index).MediaFiles;
             }
-            else
-            {                
-
-            }
+            
 
         }
         private void BackBtn_onClick(object sender, RoutedEventArgs e)
         {
             AlbumsPage albumsPage = new AlbumsPage();
             NavigationService.Navigate(albumsPage);
+        }
+
+        private void import_btn_OnClick(object sender, RoutedEventArgs e)
+        {
+            ImportWindow importWindow = new ImportWindow();
+            //Change constructor to include the album to add files to.
+            //Add delegates to add files directly.
+
+            importWindow.Show();
+            
         }
     }
 }

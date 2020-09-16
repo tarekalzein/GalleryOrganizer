@@ -15,10 +15,9 @@ namespace GalleryPL
         public MainWindow()
         {
             InitializeComponent();
-            Main.Content = new AlbumsPage();
-            
-        }
 
-       
+            //Main is the name of the main Frame to host pages.
+            Main.Content = new AlbumsPage();            
+        }       
     }
 }

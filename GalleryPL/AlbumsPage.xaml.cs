@@ -38,8 +38,8 @@ namespace GalleryPL
             //This would work too.
             //index = _myListBoxName.ItemContainerGenerator.IndexFromContainer(button.DataContext);
 
-            MessageBox.Show(index.ToString());//replace this with actual functionality
-            MessageBox.Show("Album title from Album Manager " + albumManager.GetAlbumAtIndex(index).AlbumTitle);//replace this with actual functionality
+            SingleAlbumPage singleAlbum = new SingleAlbumPage(index, albumManager);
+            NavigationService.Navigate(singleAlbum);
         }
 
         private void btnOpen_onClick(object sender, RoutedEventArgs e)
