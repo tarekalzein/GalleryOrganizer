@@ -10,6 +10,7 @@ using System.Windows.Controls.Primitives;
 namespace GalleryPL
 {
 
+
     //TODO: Add video thumbnails converter or something.
 
     /// <summary>
@@ -17,11 +18,19 @@ namespace GalleryPL
     /// </summary>
     public partial class ImportWindow : Window
     {
+
+        Album album = new Album();
+
+        public delegate void ImportEventHandler(object source, ImportEventInfo eventInfo);
+
+        public event ImportEventHandler FilesImported;
+
         
         AppSettings appSettings = new AppSettings();
-        public ImportWindow()
+        public ImportWindow(Album album)
         {
             InitializeComponent();
+            this.album = album;
 
             DriveInfo[] drives = DriveInfo.GetDrives();
             foreach(DriveInfo drive in drives)
@@ -118,13 +127,26 @@ namespace GalleryPL
 
         private void import_btn_Click(object sender, RoutedEventArgs e)
         {
+            ObservableCollection<MediaFile> mediaFiles = new ObservableCollection<MediaFile>();
             int count = 0;
             foreach(FileHelper file in Thumbnails.ItemsSource)
             {
                 if (file.IsSelected)
+                {
                     count++;
+                    //album.MediaFiles.Add(new MediaFile(file.MediaFile.FileName, file.MediaFile.Description, file.MediaFile.FilePath));
+                    mediaFiles.Add(new MediaFile(file.MediaFile.FileName, file.MediaFile.Description, file.MediaFile.FilePath));
+                }
             }
-            MessageBox.Show("Count of selected files:" + count);
+            if(mediaFiles.Count>0)
+            {
+                MessageBox.Show("Count of selected files:" + count);
+                OnFilesImported(album, mediaFiles);
+            }
+            else
+            {
+                MessageBox.Show("No files were selected");
+            }
             
         }
 
@@ -148,6 +170,14 @@ namespace GalleryPL
                 }                
             }
             return fileInfos;
+        }
+
+        protected virtual void OnFilesImported(Album album, ObservableCollection<MediaFile> mediaFiles)
+        {
+            if(FilesImported!=null)
+            {
+                FilesImported(this, new ImportEventInfo() { Album = album, MediaFiles = mediaFiles });
+            }
         }
     }
 }

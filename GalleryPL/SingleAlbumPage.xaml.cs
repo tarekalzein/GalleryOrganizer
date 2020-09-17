@@ -1,19 +1,7 @@
 ﻿using GalleryBL;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace GalleryPL.Properties
 {
@@ -22,32 +10,44 @@ namespace GalleryPL.Properties
     /// </summary>
     public partial class SingleAlbumPage : Page
     {
+        Album album = new Album();
+
         public SingleAlbumPage(int index, AlbumManager albumManager)
         {
             InitializeComponent();
+            album = albumManager.GetAlbumAtIndex(index);
 
             albumManager.GetAlbumFilesByAlbumIndex(index);
-            AlbumNameTextBlock.Text = albumManager.GetAlbumAtIndex(index).AlbumTitle;
+            AlbumNameTextBlock.Text =album.AlbumTitle;
 
             if (albumManager.GetAlbumAtIndex(index).MediaFiles.Count > 0)
             {
                 ListViewImages.ItemsSource = albumManager.GetAlbumAtIndex(index).MediaFiles;
             }
             
-
         }
         private void BackBtn_onClick(object sender, RoutedEventArgs e)
         {
-            AlbumsPage albumsPage = new AlbumsPage();
+            AlbumsPage albumsPage = new AlbumsPage();           
             NavigationService.Navigate(albumsPage);
         }
 
-        private void import_btn_OnClick(object sender, RoutedEventArgs e)
+        private void add_btn_OnClick(object sender, RoutedEventArgs e)
         {
-            ImportWindow importWindow = new ImportWindow();
+            ImportWindow importWindow = new ImportWindow(album);
             //TODO: Change constructor to include the album to add files to.
             //Add delegates to add files directly.
-            importWindow.Show();            
+            importWindow.Show();
+
+            importWindow.FilesImported += OnFilesImported;
+        }
+        public void OnFilesImported(object source, ImportEventInfo e)
+        {
+            this.album = e.Album;
+            foreach(var file in e.MediaFiles)
+            {
+                this.album.MediaFiles.Add(new MediaFile(file.FileName, file.Description,file.FilePath));
+            }
         }
     }
 }

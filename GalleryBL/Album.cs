@@ -18,6 +18,10 @@ namespace GalleryBL
             MediaFiles = new ObservableCollection<MediaFile>();
             AlbumDescription = albumDescription;
             AlbumImage = albumImage;            
+        }
+
+        public Album()
+        {
 
         }
     }

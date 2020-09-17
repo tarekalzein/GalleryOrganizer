@@ -11,7 +11,7 @@ namespace GalleryPL
     /// </summary>
     public partial class AlbumsPage : Page
     {
-        AlbumManager albumManager = new AlbumManager();
+        AlbumManager albumManager = new AlbumManager(); //Maybe move this to main window.
         public AlbumsPage()
         {
             InitializeComponent();
@@ -51,8 +51,8 @@ namespace GalleryPL
                 if (parentContextMenu != null)
                 {
                     int index = ListViewAlbums.Items.IndexOf(parentContextMenu.DataContext);
-                    //MessageBox.Show("Album title from Album Manager " + albumManager.GetAlbumAtIndex(index).AlbumTitle);//replace this with actual functionality
                     SingleAlbumPage singleAlbum = new SingleAlbumPage(index, albumManager);
+                    
                     NavigationService.Navigate(singleAlbum);
                 }
             }
@@ -80,5 +80,7 @@ namespace GalleryPL
             MessageBox.Show("New Album added, title: " + album.AlbumTitle);
 
         }
+
+ 
     }
 }

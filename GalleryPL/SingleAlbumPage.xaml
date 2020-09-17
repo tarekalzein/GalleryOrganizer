@@ -27,7 +27,7 @@
             <DockPanel>
                 <Button FontFamily="Marlett" FontSize="25" Content="3"  Click="BackBtn_onClick" Background="Transparent" Foreground="AliceBlue" BorderThickness="0" Margin="10 0"/>
                 <TextBlock Name="AlbumNameTextBlock" Text="Album Name"  FontSize="28" FontWeight="Medium" Foreground="AliceBlue" Width="446" VerticalAlignment="Center" Margin="20,12"/>
-                <Button  x:Name="import_btn" HorizontalAlignment="Right" Background="Transparent" BorderThickness="0" Click="import_btn_OnClick" >
+                <Button  x:Name="add_btn" HorizontalAlignment="Right" Background="Transparent" BorderThickness="0" Click="add_btn_OnClick" >
                     <Image Width="50" Height="50" Margin="20 0">
                         <Image.RenderTransform>
                             <TransformGroup>
