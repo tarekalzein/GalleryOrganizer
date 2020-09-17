@@ -28,6 +28,21 @@ namespace GalleryPL
                 album = new Album();
             
         }
+        public NewEditDialogue(Album album)
+        {
+            InitializeComponent();
+            if (album == null)
+            {
+                album = new Album();
+            }
+            else
+            {
+                this.album = album;
+                title_txtbox.Text = album.AlbumTitle;
+                description_txtbox.Text = album.AlbumDescription;
+            }
+        }
+
         public Album Album
         {
             get { return album; }

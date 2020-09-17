@@ -114,7 +114,7 @@
                                             <Button.ContextMenu>
                                                 <ContextMenu Background="#303030" BorderThickness="0">
                                                     <MenuItem Header="Open" Click="btnOpen_onClick" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Parent}" Style="{StaticResource MenuItemStyle}"/>
-                                                    <MenuItem Header="Edit"  CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Parent}" Style="{StaticResource MenuItemStyle}"/>
+                                                    <MenuItem Header="Edit"  Click="btnEdit_onClick" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Parent}" Style="{StaticResource MenuItemStyle}"/>
                                                     <MenuItem Header="Delete" Click="btnDelete_onClick" CommandParameter="{Binding RelativeSource={RelativeSource self}, Path=Parent}" Style="{StaticResource MenuItemStyle}"/>
                                                     <MenuItem Header="SlideShow" Style="{StaticResource MenuItemStyle}"/>
                                                 </ContextMenu>

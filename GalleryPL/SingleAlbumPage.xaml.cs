@@ -20,7 +20,6 @@ namespace GalleryPL.Properties
 
             album = albumManager.GetAlbumAtIndex(index);
 
-            albumManager.GetAlbumFilesByAlbumIndex(index);
             AlbumNameTextBlock.Text =album.AlbumTitle;
 
             ListViewImages.ItemsSource = albumManager.GetAlbumAtIndex(index).MediaFiles;

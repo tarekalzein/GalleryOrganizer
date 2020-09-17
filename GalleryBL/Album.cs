@@ -12,12 +12,12 @@ namespace GalleryBL
         public string AlbumDescription { get; set; }
         public string AlbumImage { get; set; }
 
-        public Album(string albumTitle, string albumDescription, string albumImage )
+        public Album(string albumTitle, string albumDescription)
         {
             AlbumTitle = albumTitle;
             MediaFiles = new ObservableCollection<MediaFile>();
             AlbumDescription = albumDescription;
-            AlbumImage = albumImage;            
+            AlbumImage = "Assets/photo-gallery.png";   //Default image          
         }
 
         public Album()

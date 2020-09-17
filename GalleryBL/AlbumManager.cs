@@ -7,6 +7,8 @@ namespace GalleryBL
 {
     public class AlbumManager
     {
+        //todo: don't allow duplicated images or remove them....apply a suitable solution.
+
         //Changed to ObservableCollection to eliminate the need to update ListViews.
         ObservableCollection<Album> albumList = new ObservableCollection<Album>();
 
@@ -34,9 +36,5 @@ namespace GalleryBL
             return albumList[index];
         }
 
-        public ObservableCollection<MediaFile> GetAlbumFilesByAlbumIndex(int index)
-        {
-            return GetAlbumAtIndex(0).MediaFiles;
-        }
     }
 }

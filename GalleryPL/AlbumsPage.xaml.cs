@@ -3,6 +3,7 @@ using GalleryPL.Properties;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
+using System.Windows.Threading;
 
 namespace GalleryPL
 {
@@ -56,7 +57,6 @@ namespace GalleryPL
                     NavigationService.Navigate(singleAlbum);
                 }
             }
-
         }
 
         private void btnDelete_onClick(object sender, RoutedEventArgs e)
@@ -73,16 +73,40 @@ namespace GalleryPL
             }
         }
 
+        private void btnEdit_onClick(object sender, RoutedEventArgs e)
+        {
+            MenuItem menuItem = sender as MenuItem;
+            if(menuItem != null)
+            {
+                ContextMenu parentContextMenu = menuItem.CommandParameter as ContextMenu;
+                if(parentContextMenu != null)
+                {
+                    int index= ListViewAlbums.Items.IndexOf(parentContextMenu.DataContext);
+                    NewEditDialogue newEditDialogue = new NewEditDialogue(albumManager.GetAlbumAtIndex(index));
+                    newEditDialogue.ShowDialog();
+                    if (newEditDialogue.DialogResult == true)
+                    {
+                        albumManager.GetAlbumAtIndex(index).AlbumTitle = newEditDialogue.Album.AlbumTitle;
+                        albumManager.GetAlbumAtIndex(index).AlbumDescription = newEditDialogue.Album.AlbumDescription;
+
+                        ListViewAlbums.Items.Refresh();
+                    }
+
+                }
+            }
+        }
+
         private void new_btn_Click(object sender, RoutedEventArgs e)
         {
             NewEditDialogue newEditDialogue = new NewEditDialogue();
             newEditDialogue.ShowDialog();
             if(newEditDialogue.DialogResult==true)
             {
-                Album album= new Album(newEditDialogue.Album.AlbumTitle, newEditDialogue.Album.AlbumDescription, "Assets/photo-gallery.png");
+                Album album= new Album(newEditDialogue.Album.AlbumTitle, newEditDialogue.Album.AlbumDescription);
                 albumManager.AddNewAlbum(album);
             }
         }
+
 
  
     }
