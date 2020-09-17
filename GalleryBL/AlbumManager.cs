@@ -12,7 +12,8 @@ namespace GalleryBL
 
         public AlbumManager()
         {
-            albumList = new TestClass().GetAlbums();
+            //Todo: remove this.
+            //albumList = new TestClass().GetAlbums();
         }
         public ObservableCollection<Album> GetAlbums()
         {

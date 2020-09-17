@@ -11,14 +11,14 @@ namespace GalleryPL
     /// </summary>
     public partial class AlbumsPage : Page
     {
-        AlbumManager albumManager = new AlbumManager(); //Maybe move this to main window.
-        public AlbumsPage()
+        private AlbumManager albumManager; //Maybe move this to main window.
+        public AlbumsPage(AlbumManager manager)
         {
+            albumManager = manager;
             InitializeComponent();
-            if (albumManager.GetAlbums().Count > 0)
-            {
-                ListViewAlbums.ItemsSource = albumManager.GetAlbums();
-            }
+
+            ListViewAlbums.ItemsSource = albumManager.GetAlbums();
+
         }
         private void Album_btn_Click(object sender, RoutedEventArgs e)
         {
@@ -75,10 +75,13 @@ namespace GalleryPL
 
         private void new_btn_Click(object sender, RoutedEventArgs e)
         {
-            Album album = new Album("New Album", "new Album from add button", "Assets/test_image.jpg");
-            albumManager.AddNewAlbum(album);
-            MessageBox.Show("New Album added, title: " + album.AlbumTitle);
-
+            NewEditDialogue newEditDialogue = new NewEditDialogue();
+            newEditDialogue.ShowDialog();
+            if(newEditDialogue.DialogResult==true)
+            {
+                Album album= new Album(newEditDialogue.Album.AlbumTitle, newEditDialogue.Album.AlbumDescription, "Assets/photo-gallery.png");
+                albumManager.AddNewAlbum(album);
+            }
         }
 
  

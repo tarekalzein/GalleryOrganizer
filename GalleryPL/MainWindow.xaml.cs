@@ -11,13 +11,13 @@ namespace GalleryPL
     /// </summary>
     public partial class MainWindow : Window
     {
-
+        AlbumManager albumManager = new AlbumManager();
         public MainWindow()
         {
             InitializeComponent();
 
             //Main is the name of the main Frame to host pages.
-            Main.Content = new AlbumsPage();            
+            Main.Content = new AlbumsPage(albumManager);            
         }       
     }
 }

@@ -11,24 +11,25 @@ namespace GalleryPL.Properties
     public partial class SingleAlbumPage : Page
     {
         Album album = new Album();
+        AlbumManager albumManager;
 
-        public SingleAlbumPage(int index, AlbumManager albumManager)
+        public SingleAlbumPage(int index, AlbumManager manager)
         {
             InitializeComponent();
+            albumManager = manager;
+
             album = albumManager.GetAlbumAtIndex(index);
 
             albumManager.GetAlbumFilesByAlbumIndex(index);
             AlbumNameTextBlock.Text =album.AlbumTitle;
 
-            if (albumManager.GetAlbumAtIndex(index).MediaFiles.Count > 0)
-            {
-                ListViewImages.ItemsSource = albumManager.GetAlbumAtIndex(index).MediaFiles;
-            }
-            
+            ListViewImages.ItemsSource = albumManager.GetAlbumAtIndex(index).MediaFiles;
+
+
         }
         private void BackBtn_onClick(object sender, RoutedEventArgs e)
         {
-            AlbumsPage albumsPage = new AlbumsPage();           
+            AlbumsPage albumsPage = new AlbumsPage(albumManager);           
             NavigationService.Navigate(albumsPage);
         }
 
