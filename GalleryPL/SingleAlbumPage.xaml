@@ -78,8 +78,7 @@
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Border Margin="10" Width="250" Height="200" Background="#303030" >
-                                        <Button x:Name="album_btn" CommandParameter="{Binding}">
-                                            <!--CommandParameter with binding to pass the Album object/ListViewAlbums object.-->
+                                        <Button x:Name="album_btn" MouseDoubleClick="album_btn_MouseDoubleClick" CommandParameter="{Binding}">
                                             <Button.Style>
                                                 <Style TargetType="{x:Type Button}">
                                                     <Setter Property="Background" Value="#303030"/>
@@ -113,8 +112,8 @@
                                             </StackPanel>
                                             <Button.ContextMenu>
                                                 <ContextMenu Background="#303030" BorderThickness="0">
-                                                    <MenuItem Header="Open" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Parent}" Style="{StaticResource MenuItemStyle}"/>
-                                                    <MenuItem Header="Delete" CommandParameter="{Binding RelativeSource={RelativeSource self}, Path=Parent}" Style="{StaticResource MenuItemStyle}"/>
+                                                    <MenuItem Header="Open" Click="btnOpen_OnClick" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Parent}" Style="{StaticResource MenuItemStyle}"/>
+                                                    <MenuItem Header="Delete" Click="btnDelete_onClick" CommandParameter="{Binding RelativeSource={RelativeSource self}, Path=Parent}" Style="{StaticResource MenuItemStyle}"/>
                                                     <!--<MenuItem Header="SlideShow" Style="{StaticResource MenuItemStyle}"/>-->
                                                 </ContextMenu>
 

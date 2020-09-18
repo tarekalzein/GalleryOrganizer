@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer;
 using GalleryBL;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
@@ -22,7 +23,7 @@ namespace GalleryPL.Properties
             album = albumManager.GetAlbumAtIndex(index);
 
             AlbumNameTextBlock.Text =album.AlbumTitle;
-
+            
             ListViewImages.ItemsSource = albumManager.GetAlbumAtIndex(index).MediaFiles;
 
 
@@ -50,7 +51,27 @@ namespace GalleryPL.Properties
                 this.album.MediaFiles.Add(new MediaFile(file.FileName, file.Description,file.FilePath));
             }
             SerializationHelper.Serialize(albumManager);
+        }
 
+        private void btnDelete_onClick(object sender, RoutedEventArgs e)
+        {
+            MenuItem menuItem = sender as MenuItem;
+
+            int index = ListViewImages.Items.IndexOf(menuItem.DataContext);
+            this.album.MediaFiles.RemoveAt(index);
+            SerializationHelper.Serialize(albumManager);
+        }
+
+        private void btnOpen_OnClick(object sender, RoutedEventArgs e)
+        {
+            MenuItem menuItem = sender as MenuItem;
+            Process.Start(this.album.MediaFiles[ListViewImages.Items.IndexOf(menuItem.DataContext)].FilePath);
+        }
+
+        private void album_btn_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Button button = sender as Button;
+            Process.Start(this.album.MediaFiles[ListViewImages.Items.IndexOf(button.DataContext)].FilePath);
         }
     }
 }
