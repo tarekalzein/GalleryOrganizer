@@ -128,22 +128,26 @@ namespace GalleryPL
         private void import_btn_Click(object sender, RoutedEventArgs e)
         {
             ObservableCollection<MediaFile> mediaFiles = new ObservableCollection<MediaFile>();
-            foreach(FileHelper file in Thumbnails.ItemsSource)
+            if(Thumbnails.ItemsSource!=null)
             {
-                if (file.IsSelected)
+                foreach (FileHelper file in Thumbnails.ItemsSource)
                 {
-
-                    mediaFiles.Add(new MediaFile(file.MediaFile.FileName, file.MediaFile.Description, file.MediaFile.FilePath));
+                    if (file.IsSelected)
+                    {
+                        mediaFiles.Add(new MediaFile(file.MediaFile.FileName, file.MediaFile.Description, file.MediaFile.FilePath));
+                    }
+                }
+                if (mediaFiles.Count > 0)
+                {
+                    OnFilesImported(album, mediaFiles);
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("No files were selected");
                 }
             }
-            if(mediaFiles.Count>0)
-            {
-                OnFilesImported(album, mediaFiles);
-            }
-            else
-            {
-                MessageBox.Show("No files were selected");
-            }
+
             
         }
 
