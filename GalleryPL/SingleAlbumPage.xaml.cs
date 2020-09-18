@@ -1,6 +1,7 @@
 ﻿using DataAccessLayer;
 using GalleryBL;
 using System.Diagnostics;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
@@ -48,7 +49,23 @@ namespace GalleryPL.Properties
             this.album = e.Album;
             foreach(var file in e.MediaFiles)
             {
-                this.album.MediaFiles.Add(new MediaFile(file.FileName, file.Description,file.FilePath));
+                string extension = Path.GetExtension(file.FilePath);
+                switch (extension)
+                {
+                    case ".jpg":
+                        this.album.MediaFiles.Add(new ImageFile(file.FileName, file.Description, file.FilePath));
+                        break;
+                    case ".png":
+                        this.album.MediaFiles.Add(new ImageFile(file.FileName, file.Description, file.FilePath)); 
+                        break;
+                    case ".wmv":
+                        this.album.MediaFiles.Add(new VideoFile(file.FileName, file.Description, file.FilePath)); 
+                        break;
+
+                    case ".mp4":
+                        this.album.MediaFiles.Add(new VideoFile(file.FileName, file.Description, file.FilePath));
+                        break;
+                }
             }
             SerializationHelper.Serialize(albumManager);
         }

@@ -104,7 +104,7 @@
                                                         <DropShadowEffect ShadowDepth="5"/>
                                                     </Border.Effect>
                                                     <Border.Background>
-                                                        <ImageBrush ImageSource="{Binding FilePath}" Stretch="Uniform"/>
+                                                        <ImageBrush ImageSource="{Binding FileThumbnail}" Stretch="Uniform"/>
                                                     </Border.Background>
                                                 </Border>
                                                 <TextBlock Margin="5" Text="{Binding FileName}" FontSize="17" FontFamily="Franklin Gothic Medium" Foreground="AliceBlue"/>

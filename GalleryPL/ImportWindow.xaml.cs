@@ -128,19 +128,16 @@ namespace GalleryPL
         private void import_btn_Click(object sender, RoutedEventArgs e)
         {
             ObservableCollection<MediaFile> mediaFiles = new ObservableCollection<MediaFile>();
-            int count = 0;
             foreach(FileHelper file in Thumbnails.ItemsSource)
             {
                 if (file.IsSelected)
                 {
-                    count++;
-                    //album.MediaFiles.Add(new MediaFile(file.MediaFile.FileName, file.MediaFile.Description, file.MediaFile.FilePath));
+
                     mediaFiles.Add(new MediaFile(file.MediaFile.FileName, file.MediaFile.Description, file.MediaFile.FilePath));
                 }
             }
             if(mediaFiles.Count>0)
             {
-                MessageBox.Show("Count of selected files:" + count);
                 OnFilesImported(album, mediaFiles);
             }
             else

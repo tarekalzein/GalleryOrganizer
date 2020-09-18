@@ -13,6 +13,7 @@ namespace GalleryBL
         public string FileName { get; set; }
         public string Description { get; set; }
         public string FilePath { get; set; }
+        public string FileThumbnail{ get; set; }
         public MediaFile(string fileName, string description, string filePath)
         {
             FileName = fileName;
