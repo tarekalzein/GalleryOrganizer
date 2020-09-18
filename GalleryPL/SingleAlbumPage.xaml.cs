@@ -1,4 +1,5 @@
-﻿using GalleryBL;
+﻿using DataAccessLayer;
+using GalleryBL;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
@@ -48,6 +49,8 @@ namespace GalleryPL.Properties
             {
                 this.album.MediaFiles.Add(new MediaFile(file.FileName, file.Description,file.FilePath));
             }
+            SerializationHelper.Serialize(albumManager);
+
         }
     }
 }

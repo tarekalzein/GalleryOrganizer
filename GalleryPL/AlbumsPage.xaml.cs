@@ -1,4 +1,5 @@
-﻿using GalleryBL;
+﻿using DataAccessLayer;
+using GalleryBL;
 using GalleryPL.Properties;
 using System.Windows;
 using System.Windows.Controls;
@@ -71,6 +72,7 @@ namespace GalleryPL
                     albumManager.RemoveAlbum(index);
                 }
             }
+            SerializationHelper.Serialize(albumManager);
         }
 
         private void btnEdit_onClick(object sender, RoutedEventArgs e)
@@ -94,6 +96,7 @@ namespace GalleryPL
 
                 }
             }
+            SerializationHelper.Serialize(albumManager);
         }
 
         private void new_btn_Click(object sender, RoutedEventArgs e)
@@ -104,10 +107,8 @@ namespace GalleryPL
             {
                 Album album= new Album(newEditDialogue.Album.AlbumTitle, newEditDialogue.Album.AlbumDescription);
                 albumManager.AddNewAlbum(album);
+                SerializationHelper.Serialize(albumManager);
             }
-        }
-
-
- 
+        } 
     }
 }

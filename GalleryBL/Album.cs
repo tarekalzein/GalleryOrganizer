@@ -5,6 +5,7 @@ using System.Text;
 
 namespace GalleryBL
 {
+    [Serializable]
     public class Album
     {
         public string AlbumTitle { get; set; }

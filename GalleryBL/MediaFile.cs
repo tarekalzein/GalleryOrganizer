@@ -4,6 +4,7 @@ using System.Text;
 
 namespace GalleryBL
 {
+    [Serializable]
     /// <summary>
     /// Class to represent a media file and its attributes.
     /// </summary>

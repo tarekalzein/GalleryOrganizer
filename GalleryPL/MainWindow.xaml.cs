@@ -1,4 +1,5 @@
-﻿using GalleryBL;
+﻿using DataAccessLayer;
+using GalleryBL;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,6 +16,15 @@ namespace GalleryPL
         public MainWindow()
         {
             InitializeComponent();
+
+            //var result=SerializationHelper.Serialize(albumManager);
+            //MessageBox.Show("Serialization:" + result.ToString());
+            string errorMessage;
+            albumManager = SerializationHelper.Deserialize(out errorMessage);
+            if(!string.IsNullOrEmpty(errorMessage))
+            {
+                MessageBox.Show(errorMessage);
+            }
 
             //Main is the name of the main Frame to host pages.
             Main.Content = new AlbumsPage(albumManager);            
