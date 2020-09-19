@@ -23,8 +23,8 @@
         </Grid>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition Height="22*"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0"  Grid.RowSpan="2">
                 <Button x:Name="import_btn" Content="Import" HorizontalAlignment="Right" Margin="10" VerticalAlignment="Top" Width="55" Click="import_btn_Click" Height="26" Background="AliceBlue" FontWeight="Bold"/>
@@ -70,7 +70,7 @@
                                                             <DropShadowEffect ShadowDepth="5"/>
                                                         </Border.Effect>
                                                         <Border.Background>
-                                                            <ImageBrush ImageSource="{Binding MediaFile.FilePath}" Stretch="Uniform"/>
+                                                            <ImageBrush ImageSource="{Binding MediaFile.FileThumbnail}" Stretch="Uniform"/>
                                                         </Border.Background>
                                                     </Border>
                                                     <TextBlock Margin="5" Text="{Binding MediaFile.FileName}" FontSize="17" Foreground="AliceBlue" Width="250" HorizontalAlignment="Center"/>

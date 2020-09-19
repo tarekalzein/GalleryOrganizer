@@ -15,8 +15,7 @@ namespace DataAccessLayer
             {
                 BinaryFormatter binaryFormatter = new BinaryFormatter();
                 fileStream = new FileStream(targetFile, FileMode.Create);
-                binaryFormatter.Serialize(fileStream, albumManager);
-                ;
+                binaryFormatter.Serialize(fileStream, albumManager);                
             }
             catch
             {
@@ -25,7 +24,6 @@ namespace DataAccessLayer
             finally
             {
                 fileStream.Close();
-
             }
             return true;
         }
@@ -49,8 +47,7 @@ namespace DataAccessLayer
             }
             catch(SerializationException e)
             {
-                errorMessage="Deserialization failed " + e.Message;
-                
+                errorMessage="Error loading saved data. \n" + e.Message;                
             }
             finally
             {

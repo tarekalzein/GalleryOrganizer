@@ -26,8 +26,6 @@ namespace GalleryPL.Properties
             AlbumNameTextBlock.Text =album.AlbumTitle;
             
             ListViewImages.ItemsSource = albumManager.GetAlbumAtIndex(index).MediaFiles;
-
-
         }
         private void BackBtn_onClick(object sender, RoutedEventArgs e)
         {
@@ -38,14 +36,13 @@ namespace GalleryPL.Properties
         private void add_btn_OnClick(object sender, RoutedEventArgs e)
         {
             ImportWindow importWindow = new ImportWindow(album);
-            //TODO: Change constructor to include the album to add files to.
-            //Add delegates to add files directly.
             importWindow.Show();
 
             importWindow.FilesImported += OnFilesImported;
         }
         public void OnFilesImported(object source, ImportEventInfo e)
         {
+
             this.album = e.Album;
             foreach(var file in e.MediaFiles)
             {
@@ -53,17 +50,12 @@ namespace GalleryPL.Properties
                 switch (extension)
                 {
                     case ".jpg":
+                    case ".png":
                         this.album.MediaFiles.Add(new ImageFile(file.FileName, file.Description, file.FilePath));
                         break;
-                    case ".png":
-                        this.album.MediaFiles.Add(new ImageFile(file.FileName, file.Description, file.FilePath)); 
-                        break;
                     case ".wmv":
-                        this.album.MediaFiles.Add(new VideoFile(file.FileName, file.Description, file.FilePath)); 
-                        break;
-
                     case ".mp4":
-                        this.album.MediaFiles.Add(new VideoFile(file.FileName, file.Description, file.FilePath));
+                        this.album.MediaFiles.Add(new VideoFile(file.FileName, file.Description, file.FilePath)); 
                         break;
                 }
             }

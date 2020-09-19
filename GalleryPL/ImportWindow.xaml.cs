@@ -1,8 +1,10 @@
 ﻿using GalleryBL;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -71,7 +73,6 @@ namespace GalleryPL
 
         public void TreeViewItem_Selected(object sender, RoutedEventArgs e)
         {
-
             //ObservableCollection<MediaFile> files = new ObservableCollection<MediaFile>();
             //Thumbnails.ItemsSource = files;
 
@@ -83,12 +84,22 @@ namespace GalleryPL
             {
                 DirectoryInfo folder = item.Tag as DirectoryInfo;                
                 string path= GetFolderPath(folder);
-
                 try
                 {
-                    foreach(var fi in GetFilesWithSettings(folder))
+                    foreach (var fi in GetFilesWithSettings(folder))
                     {
-                        files.Add(new FileHelper(false, new MediaFile(fi.Name, "", fi.FullName)));
+                        //files.Add(new FileHelper(false, new MediaFile(fi.Name, "", fi.FullName)));
+                        switch (fi.Extension)
+                        {
+                            case ".jpg":
+                            case ".png":
+                                files.Add(new FileHelper(false, new ImageFile(fi.Name,"", fi.FullName)));
+                                break;
+                            case ".wmv":
+                            case ".mp4":
+                                files.Add(new FileHelper(false, new VideoFile(fi.Name, "", fi.FullName)));
+                                break;
+                        }
                     }
                 }
                 catch
@@ -127,6 +138,7 @@ namespace GalleryPL
 
         private void import_btn_Click(object sender, RoutedEventArgs e)
         {
+            //TODO: add check if file already exists.
             ObservableCollection<MediaFile> mediaFiles = new ObservableCollection<MediaFile>();
             if(Thumbnails.ItemsSource!=null)
             {
@@ -134,7 +146,22 @@ namespace GalleryPL
                 {
                     if (file.IsSelected)
                     {
-                        mediaFiles.Add(new MediaFile(file.MediaFile.FileName, file.MediaFile.Description, file.MediaFile.FilePath));
+                        if(album.MediaFiles.Any(o => o.FilePath==file.MediaFile.FilePath))
+                        {
+                            //MessageBox.Show($"{file.MediaFile.FileName} already exists in this album");
+                            MessageBoxResult result = MessageBox.Show($"{file.MediaFile.FileName} already exists in this album, would you like to add it anyway?",
+                                "File already exists",
+                                MessageBoxButton.YesNo);
+                            switch(result)
+                            {
+                                case MessageBoxResult.Yes:
+                                    mediaFiles.Add(new MediaFile(file.MediaFile.FileName, file.MediaFile.Description, file.MediaFile.FilePath));
+                                    break;
+                                case MessageBoxResult.No:
+                                    //Do Nothing
+                                    break;
+                            }
+                        }
                     }
                 }
                 if (mediaFiles.Count > 0)
@@ -142,13 +169,7 @@ namespace GalleryPL
                     OnFilesImported(album, mediaFiles);
                     this.Close();
                 }
-                else
-                {
-                    MessageBox.Show("No files were selected");
-                }
-            }
-
-            
+            }            
         }
 
         private void settings_btn_Click(object sender, RoutedEventArgs e)
@@ -159,8 +180,12 @@ namespace GalleryPL
 
         private List<FileInfo> GetFilesWithSettings(DirectoryInfo folder)
         {
+            ArrayList extensions = new ArrayList();
+            extensions.Add("*.jpg");
+            extensions.Add("*.png");
+            extensions.Add("*.mp4");
+            extensions.Add("*.wmv");
 
-            string[] extensions= {"*.jpg","*.png","*.mp4","*.wmv"};
             List<FileInfo> fileInfos = new List<FileInfo>();
 
             foreach (string ext in extensions)
