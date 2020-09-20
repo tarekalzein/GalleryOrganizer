@@ -73,8 +73,6 @@ namespace GalleryPL
 
         public void TreeViewItem_Selected(object sender, RoutedEventArgs e)
         {
-            //ObservableCollection<MediaFile> files = new ObservableCollection<MediaFile>();
-            //Thumbnails.ItemsSource = files;
 
             ObservableCollection<FileHelper> files = new ObservableCollection<FileHelper>();
             Thumbnails.ItemsSource = files;
@@ -176,15 +174,17 @@ namespace GalleryPL
         {
             SettingsWindow settings = new SettingsWindow(appSettings);
             settings.Show();
+            settings.AppSettingsChanged += OnAppSettingsChange;
+        }
+
+        private void OnAppSettingsChange(object source, AppSettingsInfo appSettingsInfo)
+        {
+            this.appSettings = appSettingsInfo.AppSettings;            
         }
 
         private List<FileInfo> GetFilesWithSettings(DirectoryInfo folder)
         {
-            ArrayList extensions = new ArrayList();
-            extensions.Add("*.jpg");
-            extensions.Add("*.png");
-            extensions.Add("*.mp4");
-            extensions.Add("*.wmv");
+            var extensions = appSettings.GetEnabledExtensions();
 
             List<FileInfo> fileInfos = new List<FileInfo>();
 
@@ -205,6 +205,8 @@ namespace GalleryPL
                 FilesImported(this, new ImportEventInfo() { Album = album, MediaFiles = mediaFiles });
             }
         }
+
+         
     }
 }
 

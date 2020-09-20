@@ -9,15 +9,15 @@
     <Grid>
         <GroupBox Header="Image Files" HorizontalAlignment="Left" Height="187" Margin="10 0" VerticalAlignment="Top" Width="200" Foreground="AliceBlue" FontSize="20">
             <StackPanel VerticalAlignment="Center">
-                <CheckBox x:Name="jpgChkbox" Content=".jpg" HorizontalAlignment="Left" Margin="20" Foreground="AliceBlue" FontSize="20"/>
-                <CheckBox x:Name="pngChkbox" Content=".png" HorizontalAlignment="Left" Margin="20" Foreground="AliceBlue" FontSize="20"/>
+                <CheckBox x:Name="jpgChkbox" Content=".jpg" Checked="HandleCheck" Unchecked="HandleCheck" HorizontalAlignment="Left" Margin="20" Foreground="AliceBlue" FontSize="20"/>
+                <CheckBox x:Name="pngChkbox" Content=".png" Checked="HandleCheck" Unchecked="HandleCheck" HorizontalAlignment="Left" Margin="20" Foreground="AliceBlue" FontSize="20"/>
             </StackPanel>
 
         </GroupBox>
         <GroupBox Header="Video Files" HorizontalAlignment="Right" Height="187" Margin="10 0" VerticalAlignment="Top" Width="200" Foreground="AliceBlue" FontSize="20">
             <StackPanel VerticalAlignment="Center">
-                <CheckBox Content=".mp4" HorizontalAlignment="Left" Margin="20" Foreground="AliceBlue" FontSize="20"/>
-                <CheckBox Content=".wav" HorizontalAlignment="Left" Margin="20" Foreground="AliceBlue" FontSize="20"/>
+                <CheckBox x:Name="mp4Chkbox" Content=".mp4" Checked="HandleCheck" Unchecked="HandleCheck" HorizontalAlignment="Left" Margin="20" Foreground="AliceBlue" FontSize="20"/>
+                <CheckBox x:Name="wmvChkbox" Content=".wmv" Checked="HandleCheck" Unchecked="HandleCheck" HorizontalAlignment="Left" Margin="20" Foreground="AliceBlue" FontSize="20"/>
             </StackPanel>
         </GroupBox>
 

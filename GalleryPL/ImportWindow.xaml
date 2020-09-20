@@ -17,8 +17,7 @@
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0" >
             <ScrollViewer HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="273" VerticalScrollBarVisibility="Auto">
-                <TreeView x:Name="FileTreeView" TreeViewItem.Expanded="TreeViewItem_Expanded" TreeViewItem.Selected="TreeViewItem_Selected" >
-                </TreeView>
+                <TreeView x:Name="FileTreeView" TreeViewItem.Expanded="TreeViewItem_Expanded" TreeViewItem.Selected="TreeViewItem_Selected" />
             </ScrollViewer>
         </Grid>
         <Grid Grid.Column="1">
