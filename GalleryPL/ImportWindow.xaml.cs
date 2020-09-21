@@ -160,6 +160,10 @@ namespace GalleryPL
                                     break;
                             }
                         }
+                        else 
+                        {
+                            mediaFiles.Add(new MediaFile(file.MediaFile.FileName, file.MediaFile.Description, file.MediaFile.FilePath));
+                        }
                     }
                 }
                 if (mediaFiles.Count > 0)
