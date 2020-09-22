@@ -5,8 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GalleryPL"
         mc:Ignorable="d"
-        Title="SlideShowWindow" Height="450" Width="800"
+        Title="SlideShowWindow"
+        WindowState="Maximized"
+        WindowStyle="None"
         Background="#303030">
+
     <Grid>
         <Frame x:Name="SlideShowMainFrame" NavigationUIVisibility="Hidden"/>
         <Grid HorizontalAlignment="Left">
