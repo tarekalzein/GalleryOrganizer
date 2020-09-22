@@ -78,8 +78,11 @@ namespace GalleryPL
         private void PlayNext()
         {
             if (currentIndex + 1 != album.MediaFiles.Count)
+            {
                 currentIndex++;
-            ShowMediaFileAtIndex(currentIndex);
+                ShowMediaFileAtIndex(currentIndex);
+            }
+
         }
         private void EscButtonHandler(object sender, KeyEventArgs e)
         {

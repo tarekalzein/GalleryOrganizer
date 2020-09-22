@@ -9,15 +9,35 @@
         WindowState="Maximized"
         WindowStyle="None"
         Background="#303030">
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="FontFamily" Value="Marlett"/>
+            <Setter Property="FontFamily" Value="Marlett"/>
+            <Setter Property="Foreground" Value="Transparent"/>
+            <Setter Property="FontSize" Value="40"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="Gray"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
 
     <Grid>
         <Frame x:Name="SlideShowMainFrame" NavigationUIVisibility="Hidden"/>
         <Grid HorizontalAlignment="Left">
-            <Button x:Name="previous_btn" FontFamily="Marlett" Content="3" Background="Transparent" Foreground="Gray" BorderThickness="0" FontSize="40" Click="previous_btn_Click"/>
+            <!--<Button x:Name="previous_btn" FontFamily="Marlett" Content="3" Background="Transparent" Foreground="Gray" BorderThickness="0" FontSize="40" Click="previous_btn_Click"/>-->
+            <Button x:Name="previous_btn" Content="3" Click="previous_btn_Click"/>
         </Grid>
+        
         <Grid HorizontalAlignment="Right">
-            <Button x:Name="next_btn" FontFamily="Marlett" Content="4" Background="Transparent" Foreground="Gray" BorderThickness="0" FontSize="40" Click="next_btn_Click"/>
+            <!--<Button x:Name="next_btn" FontFamily="Marlett" Content="4" Background="Transparent" Foreground="Gray" BorderThickness="0" FontSize="40" Click="next_btn_Click"/>-->
+            <Button x:Name="next_btn" Content="4" Click="next_btn_Click"/>
+
         </Grid>
+        
     </Grid>
     
 </Window>
