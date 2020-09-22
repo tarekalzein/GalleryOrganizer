@@ -16,6 +16,11 @@ namespace GalleryPL.Properties
         Album album = new Album();
         AlbumManager albumManager;
 
+        /// <summary>
+        /// Default constructor that takes an instance of the album manager and the index of the selected album.
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="manager"></param>
         public SingleAlbumPage(int index, AlbumManager manager)
         {
             InitializeComponent();
@@ -40,6 +45,11 @@ namespace GalleryPL.Properties
 
             importWindow.FilesImported += OnFilesImported;
         }
+        /// <summary>
+        /// The event to be called when importing new files. It takes a temporary album and copy its media files content to the original album instance.
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="e"></param>
         public void OnFilesImported(object source, ImportEventInfo e)
         {
 

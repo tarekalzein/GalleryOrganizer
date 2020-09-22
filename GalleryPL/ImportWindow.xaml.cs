@@ -11,9 +11,7 @@ using System.Windows.Controls.Primitives;
 
 namespace GalleryPL
 {
-
-
-    //TODO: Add video thumbnails converter or something.
+    //TODO: Add video thumbnails converter to take some frames from a video to show it as thumbnail instead of the default image.
 
     /// <summary>
     /// Interaction logic for ImportWindow.xaml
@@ -29,6 +27,10 @@ namespace GalleryPL
 
         
         AppSettings appSettings = new AppSettings();
+        /// <summary>
+        /// Constructor that takes an album as parameter and return the same object with added files.
+        /// </summary>
+        /// <param name="album"></param>
         public ImportWindow(Album album)
         {
             InitializeComponent();
@@ -70,7 +72,11 @@ namespace GalleryPL
                 }
             }
         }
-
+        /// <summary>
+        /// Method that creates a list of files in a selected folder from the treeview, then shows the files that fall within the file extension filter.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void TreeViewItem_Selected(object sender, RoutedEventArgs e)
         {
 
@@ -86,7 +92,6 @@ namespace GalleryPL
                 {
                     foreach (var fi in GetFilesWithSettings(folder))
                     {
-                        //files.Add(new FileHelper(false, new MediaFile(fi.Name, "", fi.FullName)));
                         switch (fi.Extension)
                         {
                             case ".jpg":
@@ -106,7 +111,11 @@ namespace GalleryPL
                 }                           
             }    
         }
-
+        /// <summary>
+        /// Event to toggle the selection of a photo/video.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ToggleButton_Click(object sender, RoutedEventArgs e)
         {
            ToggleButton toggleButton= sender as ToggleButton;
@@ -118,6 +127,11 @@ namespace GalleryPL
                 file.IsSelected = false;
         }
 
+        /// <summary>
+        /// Method to create an item in the tree view, uses dummy item to be replaced later when selecting a folder.
+        /// </summary>
+        /// <param name="o"></param>
+        /// <returns></returns>
         private TreeViewItem CreateTreeItem(object o)
         {
             TreeViewItem item = new TreeViewItem();
@@ -128,12 +142,20 @@ namespace GalleryPL
             item.Items.Add("...");
             return item;
         }
-
+        /// <summary>
+        /// Simple method to return a string of folder name.
+        /// </summary>
+        /// <param name="directoryInfo"></param>
+        /// <returns></returns>
         private string GetFolderPath(DirectoryInfo directoryInfo)
         {
             return directoryInfo.FullName;
         }
-
+        /// <summary>
+        /// Method to import selected images/videos to an album. OnFilesImported event notifies the single album page about the addition to update the opened album.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void import_btn_Click(object sender, RoutedEventArgs e)
         {
             //TODO: add check if file already exists.
@@ -173,19 +195,31 @@ namespace GalleryPL
                 }
             }            
         }
-
+        /// <summary>
+        /// Method to open the settings window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void settings_btn_Click(object sender, RoutedEventArgs e)
         {
             SettingsWindow settings = new SettingsWindow(appSettings);
             settings.Show();
             settings.AppSettingsChanged += OnAppSettingsChange;
         }
-
+        /// <summary>
+        /// Event to raise when settings are changed.
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="appSettingsInfo"></param>
         private void OnAppSettingsChange(object source, AppSettingsInfo appSettingsInfo)
         {
             this.appSettings = appSettingsInfo.AppSettings;            
         }
-
+        /// <summary>
+        /// Method to return a list of files from a search of the enabled file extensions.
+        /// </summary>
+        /// <param name="folder"></param>
+        /// <returns></returns>
         private List<FileInfo> GetFilesWithSettings(DirectoryInfo folder)
         {
             var extensions = appSettings.GetEnabledExtensions();
@@ -201,7 +235,11 @@ namespace GalleryPL
             }
             return fileInfos;
         }
-
+        /// <summary>
+        /// Event to call when Files are imported.
+        /// </summary>
+        /// <param name="album"></param>
+        /// <param name="mediaFiles"></param>
         protected virtual void OnFilesImported(Album album, ObservableCollection<MediaFile> mediaFiles)
         {
             if(FilesImported!=null)

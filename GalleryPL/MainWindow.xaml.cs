@@ -17,8 +17,7 @@ namespace GalleryPL
         {
             InitializeComponent();
 
-            //var result=SerializationHelper.Serialize(albumManager);
-            //MessageBox.Show("Serialization:" + result.ToString());
+
             string errorMessage;
             albumManager = SerializationHelper.Deserialize(out errorMessage);
             if(!string.IsNullOrEmpty(errorMessage))

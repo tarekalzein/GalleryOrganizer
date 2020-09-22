@@ -15,17 +15,26 @@ namespace GalleryPL
         public delegate void AppSettingsHandler(object source, AppSettingsInfo appSettingsInfo);
         public event AppSettingsHandler AppSettingsChanged;
 
-
+        /// <summary>
+        /// Default constructor that takes an AppSettings instance as parameter.
+        /// </summary>
+        /// <param name="s"></param>
         public SettingsWindow(AppSettings s)
         {
             settings = s;
             InitializeComponent();
+
+            //Set checkboxes statuses according to the AppSettings object.
             jpgChkbox.IsChecked = settings.GetFileExtensionStatus(ExtensionEnums.JPG);
             pngChkbox.IsChecked = settings.GetFileExtensionStatus(ExtensionEnums.PNG);
             wmvChkbox.IsChecked = settings.GetFileExtensionStatus(ExtensionEnums.WMV);
             mp4Chkbox.IsChecked = settings.GetFileExtensionStatus(ExtensionEnums.MP4);
         }
-
+        /// <summary>
+        /// One method to handle all the checkboxes.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void HandleCheck(object sender, RoutedEventArgs e)
         {
             
@@ -45,7 +54,10 @@ namespace GalleryPL
                     break;
             }
         }
-
+        /// <summary>
+        /// Event to raise when appsettings are changed.
+        /// </summary>
+        /// <param name="settings"></param>
         protected virtual void OnAppSettingsChanged(AppSettings settings)
         {
             if(AppSettingsChanged!=null)

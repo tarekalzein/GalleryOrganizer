@@ -14,23 +14,21 @@ namespace GalleryPL
 
         public delegate void VideoEventHandler(object source, EventArgs args);
         public event VideoEventHandler VideoPlayFinished;
-
+        /// <summary>
+        /// Default constructor that takes a string of a video path as parameter.
+        /// </summary>
+        /// <param name="videoPath"></param>
         public VideoPage(string videoPath)
         {
             InitializeComponent();
 
             mediaPlayer = new MediaPlayer();
             if (!string.IsNullOrEmpty(videoPath))
-                video.Source = new System.Uri(videoPath);
-            
+                video.Source = new System.Uri(videoPath);            
         }
-
-        public void ChangeVideoSource(string videoPath)
-        {
-            if (!string.IsNullOrEmpty(videoPath))
-                video.Source = new System.Uri(videoPath);
-        }
-
+        /// <summary>
+        /// Event to raise when VideoPlayFinished.
+        /// </summary>
         protected virtual void OnVideoPlayFinished()
         {
             if (VideoPlayFinished!=null)

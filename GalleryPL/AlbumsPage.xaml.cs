@@ -14,14 +14,24 @@ namespace GalleryPL
     public partial class AlbumsPage : Page
     {
         private AlbumManager albumManager; //Maybe move this to main window.
+        /// <summary>
+        /// Constructor with an album manasger instance that was created from the Main Window.
+        /// </summary>
+        /// <param name="manager">AlbumManager instance</param>
         public AlbumsPage(AlbumManager manager)
         {
             albumManager = manager;
             InitializeComponent();
 
+            //no need to check for index or whatever since the list in album manager is an observablecollection.
             ListViewAlbums.ItemsSource = albumManager.GetAlbums();
 
         }
+        /// <summary>
+        /// Method to run when clicking on an album.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Album_btn_Click(object sender, RoutedEventArgs e)
         {
 
@@ -43,7 +53,11 @@ namespace GalleryPL
             SingleAlbumPage singleAlbum = new SingleAlbumPage(index, albumManager);
             NavigationService.Navigate(singleAlbum);
         }
-
+        /// <summary>
+        /// Method to open a single album from the "open" option in the context menu.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnOpen_onClick(object sender, RoutedEventArgs e)
         {
             MenuItem menuItem = sender as MenuItem;
@@ -53,7 +67,11 @@ namespace GalleryPL
 
             NavigationService.Navigate(singleAlbum);
         }
-
+        /// <summary>
+        /// Method to delete a single album from the "open" option in the context menu.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnDelete_onClick(object sender, RoutedEventArgs e)
         {
             MenuItem menuItem = sender as MenuItem;
@@ -62,7 +80,11 @@ namespace GalleryPL
             albumManager.RemoveAlbum(index);
             SerializationHelper.Serialize(albumManager);
         }
-
+        /// <summary>
+        /// Method to edit the information of a single album from the "open" option in the context menu. It sends the chosen album to the edit window for editing.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnEdit_onClick(object sender, RoutedEventArgs e)
         {
             MenuItem menuItem = sender as MenuItem;
@@ -80,7 +102,11 @@ namespace GalleryPL
                 SerializationHelper.Serialize(albumManager);
             }
         }
-
+        /// <summary>
+        /// Method to create a new album, opens the new album window and awaits dialogue result before saving the created album to the album manager instance.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void new_btn_Click(object sender, RoutedEventArgs e)
         {
             NewEditDialogue newEditDialogue = new NewEditDialogue();
@@ -92,7 +118,11 @@ namespace GalleryPL
                 SerializationHelper.Serialize(albumManager);
             }
         }
-
+        /// <summary>
+        /// Method to send the selected album to and show it in a slideshow (fullscreen with autoscroll).
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SlideShow_Click(object sender, RoutedEventArgs e)
         {
             MenuItem menuItem = sender as MenuItem;

@@ -10,7 +10,7 @@ namespace GalleryBL
     public class AppSettings
     {
         private List<string> extensions;
-        private Dictionary<string, bool> ApplicationFileExtensions;
+        private Dictionary<string, bool> ApplicationFileExtensions; // Dictionary to hold each extension and its bool state.
 
         /// <summary>
         /// Constructor that enables all file extensions by default.
@@ -25,7 +25,10 @@ namespace GalleryBL
                 {ExtensionEnums.MP4 , true}
             };
         }
-
+        /// <summary>
+        /// Get a list of all enabled extensions
+        /// </summary>
+        /// <returns>List</returns>
         public List<string> GetEnabledExtensions() 
         {
             extensions = new List<string>();
@@ -38,7 +41,11 @@ namespace GalleryBL
             }    
             return extensions;
         }
-
+        /// <summary>
+        /// Method to enable/disabled a file extension
+        /// </summary>
+        /// <param name="fileExtension"></param>
+        /// <param name="boo"></param>
         public void ChangeFileExtensionStatus(string fileExtension, bool boo)
         {
             if (ApplicationFileExtensions.ContainsKey(fileExtension))
@@ -47,6 +54,11 @@ namespace GalleryBL
                 Console.WriteLine("Someone is messing with my application");
         }
 
+        /// <summary>
+        /// Method to get status of a single file extension
+        /// </summary>
+        /// <param name="fileExtension"></param>
+        /// <returns>bool value of whether extension is enabled/disabled</returns>
         public bool GetFileExtensionStatus(string fileExtension)
         {
             bool value;

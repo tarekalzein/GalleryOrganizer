@@ -21,6 +21,9 @@ namespace GalleryPL
     public partial class NewEditDialogue : Window
     {
         private Album album;
+        /// <summary>
+        /// Constructor to be used when creating a new album
+        /// </summary>
         public NewEditDialogue()
         {
             InitializeComponent();
@@ -28,6 +31,10 @@ namespace GalleryPL
                 album = new Album();
             
         }
+        /// <summary>
+        /// Consturctor to be used when editing an existing album.
+        /// </summary>
+        /// <param name="album"></param>
         public NewEditDialogue(Album album)
         {
             InitializeComponent();
@@ -42,7 +49,9 @@ namespace GalleryPL
                 description_txtbox.Text = album.AlbumDescription;
             }
         }
-
+        /// <summary>
+        /// Album to retrieve the modifications in a dialogue result.
+        /// </summary>
         public Album Album
         {
             get { return album; }
@@ -53,7 +62,11 @@ namespace GalleryPL
         {
             this.DialogResult = false;
         }
-
+        /// <summary>
+        /// Method to confirm returning the new/edited album
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ok_btn_Click(object sender, RoutedEventArgs e)
         {
             if (!string.IsNullOrEmpty(title_txtbox.Text))

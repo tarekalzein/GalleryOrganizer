@@ -20,7 +20,10 @@ namespace GalleryPL
 
         int currentIndex;
         private Album album;
-        
+        /// <summary>
+        /// Default constructor that takes an instance of Album to show all its content in a slideshow.
+        /// </summary>
+        /// <param name="a"></param>
         public SlideShowWindow(Album a)
         {                        
             InitializeComponent();
@@ -33,7 +36,10 @@ namespace GalleryPL
                 ShowMediaFileAtIndex(currentIndex);
             }            
         }
-
+        /// <summary>
+        /// Method to send the media file to the appropriate page and subscribe to their events.
+        /// </summary>
+        /// <param name="index"></param>
         private void ShowMediaFileAtIndex(int index)
         {
 
@@ -84,6 +90,11 @@ namespace GalleryPL
             }
 
         }
+        /// <summary>
+        /// ESC button handler.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void EscButtonHandler(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Escape)

@@ -5,6 +5,9 @@ using System.Text;
 
 namespace GalleryBL
 {
+    /// <summary>
+    /// Test class to generate some albums for testing purpose.
+    /// </summary>
     public class TestClass
     {
         ObservableCollection<Album> list = new ObservableCollection<Album>();
