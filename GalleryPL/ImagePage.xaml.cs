@@ -16,7 +16,7 @@ namespace GalleryPL
         public delegate void ImageEventHandler(object source, EventArgs args);
         public event ImageEventHandler ImagePlayFinished;
 
-        public ImagePage()
+        public ImagePage(string imagePath)
         {
             InitializeComponent();
             {
@@ -24,6 +24,8 @@ namespace GalleryPL
                 timer.Tick += new EventHandler(timer_Tick);
                 timer.Start();
             }
+            if (!string.IsNullOrEmpty(imagePath))
+                image.Source = ImagePathToSourceConverter(imagePath);
         }
 
         void timer_Tick(object sender, EventArgs e)
@@ -31,11 +33,6 @@ namespace GalleryPL
             OnImagePlayFinished();
         }
 
-        public void ChangeImageSource(string imagePath)
-        {
-            if(!string.IsNullOrEmpty(imagePath))
-            image.Source = ImagePathToSourceConverter(imagePath);
-        }
         private BitmapImage ImagePathToSourceConverter(string imagePath)
         {
             return new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute));
@@ -46,6 +43,7 @@ namespace GalleryPL
             if (ImagePlayFinished != null)
             {
                 ImagePlayFinished(this, EventArgs.Empty);
+                timer.Stop();
             }
         }
     }

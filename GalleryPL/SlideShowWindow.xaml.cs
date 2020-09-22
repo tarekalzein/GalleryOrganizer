@@ -34,17 +34,14 @@ namespace GalleryPL
 
         int currentIndex;
         private Album album;
-        ImagePage imagePage = new ImagePage();        
-        VideoPage videoPage = new VideoPage();
-
+        
         public SlideShowWindow(Album a)
         {
             album = a;
-
+            
             InitializeComponent();
 
-            //Todo: uncomment and implement this later for auto file play
-            imagePage.ImagePlayFinished += OnImagePlayFinished;
+            //imagePage.ImagePlayFinished += OnImagePlayFinished;
 
             if (album.MediaFiles.Count >0)
             {                
@@ -59,10 +56,7 @@ namespace GalleryPL
         /// </summary>
         /// <param name="source"></param>
         /// <param name="args"></param>
-        private void OnImagePlayFinished(object source, EventArgs args)
-        {
-            PlayNext();
-        }
+
 
         private void ShowMediaFileAtIndex(int index)
         {
@@ -71,15 +65,28 @@ namespace GalleryPL
             {
                 if (album.MediaFiles[index] is ImageFile)
                 {
-                    imagePage.ChangeImageSource(album.MediaFiles[index].FilePath);
+                    ImagePage imagePage = new ImagePage(album.MediaFiles[index].FileThumbnail);
+                    imagePage.ImagePlayFinished += OnImagePlayFinished;
+
                     SlideShowMainFrame.Content = imagePage;
                 }
                 else if (album.MediaFiles[index] is VideoFile)
                 {
-                    MessageBox.Show("Playing video file: " + album.MediaFiles[index].FileName);
+                    VideoPage videoPage = new VideoPage(album.MediaFiles[index].FilePath);
+                    videoPage.VideoPlayFinished += OnVideoPlayFinished;
+                    SlideShowMainFrame.Content = videoPage;
                 }
             }            
         }
+        private void OnImagePlayFinished(object source, EventArgs args)
+        {
+            PlayNext();
+        }
+        private void OnVideoPlayFinished(object source, EventArgs args)
+        {
+            PlayNext();
+        }
+
         private void next_btn_Click(object sender, RoutedEventArgs e)
         {
             PlayNext();

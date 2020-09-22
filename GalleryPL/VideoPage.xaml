@@ -9,6 +9,6 @@
       Title="VideoPage">
 
     <Grid>
-        
+        <MediaElement x:Name="video" Stretch="Uniform" MediaEnded="video_MediaEnded"/>
     </Grid>
 </Page>
