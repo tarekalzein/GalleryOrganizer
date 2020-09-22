@@ -36,27 +36,16 @@ namespace GalleryPL
         private Album album;
         
         public SlideShowWindow(Album a)
-        {
-            album = a;
-            
+        {                        
             InitializeComponent();
 
-            //imagePage.ImagePlayFinished += OnImagePlayFinished;
-
+            album = a;
             if (album.MediaFiles.Count >0)
             {                
                 currentIndex = 0;
                 ShowMediaFileAtIndex(currentIndex);
             }            
         }
-
-        /// <summary>
-        /// NOT IMPLEMENTED YET! 
-        /// This method raises even ImagePlayFinished that is added (but yet not implemented) in the ImagePage to auto play the file for specific time then notify the SlideShow class about that.
-        /// </summary>
-        /// <param name="source"></param>
-        /// <param name="args"></param>
-
 
         private void ShowMediaFileAtIndex(int index)
         {
@@ -65,9 +54,8 @@ namespace GalleryPL
             {
                 if (album.MediaFiles[index] is ImageFile)
                 {
-                    ImagePage imagePage = new ImagePage(album.MediaFiles[index].FileThumbnail);
+                    ImagePage imagePage = new ImagePage(album.MediaFiles[index].FilePath);
                     imagePage.ImagePlayFinished += OnImagePlayFinished;
-
                     SlideShowMainFrame.Content = imagePage;
                 }
                 else if (album.MediaFiles[index] is VideoFile)
@@ -80,6 +68,8 @@ namespace GalleryPL
         }
         private void OnImagePlayFinished(object source, EventArgs args)
         {
+            //this condition is to fix a bug when pressing next button from image will fire this event even if the current file is a video -> it will skip it after remaining ticker time 
+            if(album.MediaFiles[currentIndex] is ImageFile)
             PlayNext();
         }
         private void OnVideoPlayFinished(object source, EventArgs args)
