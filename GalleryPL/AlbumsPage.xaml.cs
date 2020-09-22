@@ -91,6 +91,15 @@ namespace GalleryPL
                 albumManager.AddNewAlbum(album);
                 SerializationHelper.Serialize(albumManager);
             }
-        } 
+        }
+
+        private void SlideShow_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem menuItem = sender as MenuItem;
+            int index = ListViewAlbums.Items.IndexOf(menuItem.DataContext);
+
+            SlideShowWindow slideShowWindow = new SlideShowWindow(albumManager.GetAlbumAtIndex(index));
+            slideShowWindow.Show();
+        }
     }
 }
