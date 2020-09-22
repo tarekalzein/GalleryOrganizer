@@ -20,7 +20,7 @@ namespace GalleryPL
         {
             InitializeComponent();
             {
-                timer.Interval = TimeSpan.FromSeconds(2);
+                timer.Interval = TimeSpan.FromSeconds(4);
                 timer.Tick += new EventHandler(timer_Tick);
                 timer.Start();
             }
