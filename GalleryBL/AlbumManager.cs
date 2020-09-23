@@ -20,7 +20,6 @@ namespace GalleryBL
         /// </summary>
         public AlbumManager()
         {
-            //Todo: remove this.
             //albumList = new TestClass().GetAlbums();
         }
         /// <summary>

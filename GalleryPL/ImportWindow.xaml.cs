@@ -11,8 +11,6 @@ using System.Windows.Controls.Primitives;
 
 namespace GalleryPL
 {
-    //TODO: Add video thumbnails converter to take some frames from a video to show it as thumbnail instead of the default image.
-
     /// <summary>
     /// Interaction logic for ImportWindow.xaml
     /// </summary>
@@ -158,7 +156,6 @@ namespace GalleryPL
         /// <param name="e"></param>
         private void import_btn_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: add check if file already exists.
             ObservableCollection<MediaFile> mediaFiles = new ObservableCollection<MediaFile>();
             if(Thumbnails.ItemsSource!=null)
             {

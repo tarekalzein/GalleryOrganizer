@@ -10,7 +10,7 @@ namespace GalleryPL
     /// </summary>
     public partial class SlideShowWindow : Window
     {
-        /**Todo: implement auto file play: logic is like this: 
+        /**autoplay logic is like this: 
         1- Get instance of album
         2- Loop through each media file element in it 
         3- if the element is image: send it to ImagePage to play it with a dispatcher timer coupled with notifying event. When tick is over  notify parent window (SlideShowImage).
