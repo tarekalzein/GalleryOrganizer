@@ -19,8 +19,8 @@
 
     <Grid>
         <Grid.RowDefinitions >
-            <RowDefinition Height="31*"/>
-            <RowDefinition Height="194*"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" VerticalAlignment="Center" Height="60" Margin="0,0,0,2"  >
@@ -29,14 +29,6 @@
                 <TextBlock Name="AlbumNameTextBlock" Text="Album Name"  FontSize="28" FontWeight="Medium" Foreground="AliceBlue" Width="446" VerticalAlignment="Center" Margin="20,12"/>
                 <Button  x:Name="add_btn" HorizontalAlignment="Right" Background="Transparent" BorderThickness="0" Click="add_btn_OnClick" >
                     <Image Width="50" Height="50" Margin="20 0">
-                        <Image.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform/>
-                                <SkewTransform AngleX="-1.104"/>
-                                <RotateTransform/>
-                                <TranslateTransform X="-0.433"/>
-                            </TransformGroup>
-                        </Image.RenderTransform>
                         <Image.Style>
                             <Style TargetType="Image">
                                 <Setter Property="Source" Value="Assets/add.png"/>
@@ -77,7 +69,7 @@
                         <ItemsControl x:Name="ListViewImages" ItemsSource="{Binding MediaFile}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Border Margin="10" Width="250" Height="200" Background="#303030" >
+                                    <Border Margin="10" Width="250" Height="250" Background="#303030" >
                                         <Button x:Name="album_btn" MouseDoubleClick="album_btn_MouseDoubleClick" CommandParameter="{Binding}">
                                             <Button.Style>
                                                 <Style TargetType="{x:Type Button}">
@@ -108,13 +100,13 @@
                                                     </Border.Background>
                                                 </Border>
                                                 <TextBlock Margin="5" Text="{Binding FileName}" FontSize="17" FontFamily="Franklin Gothic Medium" Foreground="AliceBlue"/>
-                                                <TextBlock Margin="5 0" Text="{Binding Description}" FontSize="12" Foreground="AliceBlue" TextWrapping="Wrap"/>
+                                                <TextBlock x:Name="DescriptionTextBlock" Margin="5 0" Text="{Binding Description}" FontSize="12" Foreground="AliceBlue" TextWrapping="Wrap"/>
                                             </StackPanel>
                                             <Button.ContextMenu>
                                                 <ContextMenu Background="#303030" BorderThickness="0">
                                                     <MenuItem Header="Open" Click="btnOpen_OnClick" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=Parent}" Style="{StaticResource MenuItemStyle}"/>
                                                     <MenuItem Header="Delete" Click="btnDelete_onClick" CommandParameter="{Binding RelativeSource={RelativeSource self}, Path=Parent}" Style="{StaticResource MenuItemStyle}"/>
-                                                    <!--<MenuItem Header="SlideShow" Style="{StaticResource MenuItemStyle}"/>-->
+                                                    <MenuItem Header="Edit Description" Click="EditDescription_Click" CommandParameter="{Binding RelativeSource={RelativeSource self}, Path=Parent}" Style="{StaticResource MenuItemStyle}"/>
                                                 </ContextMenu>
 
                                             </Button.ContextMenu>

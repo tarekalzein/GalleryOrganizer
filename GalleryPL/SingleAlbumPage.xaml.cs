@@ -28,13 +28,14 @@ namespace GalleryPL.Properties
 
             album = albumManager.GetAlbumAtIndex(index);
 
-            AlbumNameTextBlock.Text =album.AlbumTitle;
-            
+            AlbumNameTextBlock.Text = album.AlbumTitle;
+
             ListViewImages.ItemsSource = albumManager.GetAlbumAtIndex(index).MediaFiles;
+
         }
         private void BackBtn_onClick(object sender, RoutedEventArgs e)
         {
-            AlbumsPage albumsPage = new AlbumsPage(albumManager);           
+            AlbumsPage albumsPage = new AlbumsPage(albumManager);
             NavigationService.Navigate(albumsPage);
         }
 
@@ -54,7 +55,7 @@ namespace GalleryPL.Properties
         {
 
             this.album = e.Album;
-            foreach(var file in e.MediaFiles)
+            foreach (var file in e.MediaFiles)
             {
                 string extension = Path.GetExtension(file.FilePath);
                 switch (extension)
@@ -65,7 +66,7 @@ namespace GalleryPL.Properties
                         break;
                     case ".wmv":
                     case ".mp4":
-                        this.album.MediaFiles.Add(new VideoFile(file.FileName, file.Description, file.FilePath)); 
+                        this.album.MediaFiles.Add(new VideoFile(file.FileName, file.Description, file.FilePath));
                         break;
                 }
             }
@@ -91,6 +92,21 @@ namespace GalleryPL.Properties
         {
             Button button = sender as Button;
             Process.Start(this.album.MediaFiles[ListViewImages.Items.IndexOf(button.DataContext)].FilePath);
+        }
+
+        private void EditDescription_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem mi = sender as MenuItem;
+            int index = ListViewImages.Items.IndexOf(mi.DataContext);
+            EditDescription edit = new EditDescription(this.album.MediaFiles[index].Description);
+            edit.ShowDialog();
+            if(edit.DialogResult==true)
+            {
+                this.album.MediaFiles[index].Description = edit.GetNewDescription();
+                ListViewImages.Items.Refresh();
+                SerializationHelper.Serialize(albumManager);
+            }
+
         }
     }
 }
