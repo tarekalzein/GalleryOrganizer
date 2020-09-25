@@ -1,7 +1,10 @@
 ﻿using DataAccessLayer;
 using GalleryBL;
+using Microsoft.Win32;
+using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
@@ -43,8 +46,74 @@ namespace GalleryPL.Properties
         {
             ImportWindow importWindow = new ImportWindow(album);
             importWindow.Show();
-
             importWindow.FilesImported += OnFilesImported;
+        }
+
+        private void import_fileDialogue_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter=
+                "Image files (*.JPG;*.PNG)|*.JPG;*.PNG|" +
+                "Video files (*.WMV;*.MP4)|*.WMV;*.MP4|" +
+                "All supported files|*.JPG;*.PNG;*.WMV;*.MP4";
+            openFileDialog.FilterIndex = 3;
+            openFileDialog.Multiselect = true;
+            if (openFileDialog.ShowDialog() == true)
+            {
+                foreach(var filePath in openFileDialog.FileNames)
+                {
+                    string extension = Path.GetExtension(filePath);
+                    string fileName = Path.GetFileName(filePath);
+
+                    if (this.album.MediaFiles.Any(o => o.FilePath == filePath))
+                    {
+                        MessageBoxResult result = MessageBox.Show($"{fileName} already exists in this album, would you like to add it anyway?",
+                                "File already exists",
+                                MessageBoxButton.YesNo);
+                        switch (result)
+                        {
+                            case MessageBoxResult.Yes:
+                                switch (extension)
+                                {
+                                    case ".jpg":
+                                    case ".png":
+                                        this.album.MediaFiles.Add(new ImageFile(fileName, "", filePath));
+                                        break;
+                                    case ".wmv":
+                                    case ".mp4":
+                                        this.album.MediaFiles.Add(new VideoFile(fileName, "", filePath));
+                                        break;
+                                }
+                                break;
+                            case MessageBoxResult.No:
+                                //Do Nothing
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        try
+                        {
+                            switch (extension)
+                            {
+                                case ".jpg":
+                                case ".png":
+                                    this.album.MediaFiles.Add(new ImageFile(fileName, "", filePath));
+                                    break;
+                                case ".wmv":
+                                case ".mp4":
+                                    this.album.MediaFiles.Add(new VideoFile(fileName, "", filePath));
+                                    break;
+                            }
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Error importing file(s) ");
+                        }
+                    }
+                }
+                SerializationHelper.Serialize(albumManager);
+            }
         }
         /// <summary>
         /// The event to be called when importing new files. It takes a temporary album and copy its media files content to the original album instance.
