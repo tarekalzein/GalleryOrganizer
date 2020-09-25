@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:GalleryPL"
         mc:Ignorable="d"
         Title="Photo Gallery"
-        Height="850" Width="1300"
+        Height="768" Width="1024"
         Icon="Assets/GalleryIcon.png"
         WindowStartupLocation="CenterScreen"
         Background="#FF292929">
@@ -14,8 +14,8 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="20*"/>
-            <RowDefinition Height="253*"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" >
